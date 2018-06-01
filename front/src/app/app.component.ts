@@ -4,9 +4,11 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   template: `
   <div class="container">
-    <div class="row "> 
+    <div class="row m-3"> 
     <div class="col-md-12 text-center">
-      <h1> CODAPLI </h1>
+    <div class="text-center">
+    <img [src]="'assets/images/customLogo.jpeg'" class="img-responsive" alt="Codapli image">
+  </div>
     </div>
     </div>
 

@@ -22,7 +22,7 @@
         "styles.css"
       ],
       "scripts": [
-        "assets/js/joy.js"
+        
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
