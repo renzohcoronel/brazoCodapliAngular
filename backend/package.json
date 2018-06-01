@@ -1,0 +1,15 @@
+{
+  "name": "arm-codapli",
+  "version": "1.0.0",
+  "description": "Joystick for robotic arms",
+  "main": "index.js",
+  "scripts": {
+    "test": "node"
+  },
+  "keywords": [
+    "arms",
+    "codapli"
+  ],
+  "author": "Ing. Coronel, Renzo",
+  "license": "MIT"
+}
