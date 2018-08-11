@@ -20,12 +20,26 @@ front/*.launch
 front/.settings/
 front/*.sublime-workspace
 
+backend/.idea
+backend/.project
+backend/.classpath
+backend/.c9/
+backend/*.launch
+backend/.settings/
+backend/*.sublime-workspace
+
 # IDE - VSCode
 front/.vscode/*
 front/!.vscode/settings.json
 front/!.vscode/tasks.json
 front/!.vscode/launch.json
 front/!.vscode/extensions.json
+
+backend/.vscode/*
+backend/!.vscode/settings.json
+backend/!.vscode/tasks.json
+backend/!.vscode/launch.json
+backend/!.vscode/extensions.json
 
 # misc
 front/.sass-cache
@@ -37,6 +51,15 @@ front/yarn-error.log
 front/testem.log
 front/typings
 
+backend/.sass-cache
+backend/connect.lock
+backend/coverage
+backend/libpeerconnection.log
+backend/npm-debug.log
+backend/yarn-error.log
+backend/testem.log
+backend/typings
+
 # e2e
 /e2e/*.js
 /e2e/*.map
@@ -44,3 +67,7 @@ front/typings
 # System Files
 front/.DS_Store
 front/Thumbs.db
+
+# System Files
+backend/.DS_Store
+backend/Thumbs.db
