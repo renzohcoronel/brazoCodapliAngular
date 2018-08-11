@@ -4,6 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { JoystickModule } from './joystick/joystick.module';
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { JoystickModule } from './joystick/joystick.module';
     BrowserModule,
     NgbModule.forRoot(),
     JoystickModule,
+    Ng5SliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
