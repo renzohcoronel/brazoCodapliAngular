@@ -28,7 +28,7 @@ import { ControllerService } from './services/controller.service';
       </div>
     </div>
   </div>
-  `,
+  `
 })
 export class AppComponent {
   title = 'app';
