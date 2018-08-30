@@ -1,6 +1,6 @@
 var socket = require('./../socket').io();
-// var five = require("johnny-five");
-// var board = new five.Board();
+var five = require("johnny-five");
+var board = new five.Board();
 
 var degree_servo_elbow= 0; // eje z
 var degree_servo_shoulder = 0;
@@ -8,37 +8,38 @@ var degree_servo_waist = 0; // rotar sobre si mismo
 var degree_pincer = 0; // mano
 
 
-var servo_elbow = 2;
-var servo_shoulder = 3;
-var servo_waist = 4;
-var pincer = 5;
+var servo_elbow_pin = 31;
+var servo_waist_pin = 33;
+var servo_shoulder_pin = 35;
+var pincer_pin = 37;
 
-// board.on("ready", function() {
-//   servo_elbow = new five.Servo(10);
-//   servo_shoulder = new five.Servo(11);
-//   servo_waist = new five.Servo(12);
-//   pincer = new five.Servo(13);
+var servo_elbow ;
+var servo_shoulder;
+var servo_waist;
+var pincer;
 
-//   // Servo alternate constructor with options
-//   /*
-//   var servo = new five.Servo({
-//     id: "MyServo",     // User defined id
-//     pin: 10,           // Which pin is it attached to?
-//     type: "standard",  // Default: "standard". Use "continuous" for continuous rotation servos
-//     range: [0,180],    // Default: 0-180
-//     fps: 100,          // Used to calculate rate of movement between positions
-//     invert: false,     // Invert all specified positions
-//     startAt: 90,       // Immediately move to a degree
-//     center: true,      // overrides startAt if true and moves the servo to the center of the range
-//   });
-//   */
+board.on("ready", function() {
+  servo_elbow = new five.Servo(servo_elbow_pin);
+  servo_shoulder = new five.Servo(servo_shoulder_pin);
+  servo_waist = new five.Servo(servo_waist_pin);
+  pincer = new five.Servo(pincer_pin);
 
-//   // Add servo to REPL (optional)
-//   this.repl.inject({
-//     servo: servo
-//   });
-//    // Doc http://johnny-five.io/api/servo/
-// });
+  // Servo alternate constructor with options
+  /*
+  var servo = new five.Servo({
+    id: "MyServo",     // User defined id
+    pin: 10,           // Which pin is it attached to?
+    type: "standard",  // Default: "standard". Use "continuous" for continuous rotation servos
+    range: [0,180],    // Default: 0-180
+    fps: 100,          // Used to calculate rate of movement between positions
+    invert: false,     // Invert all specified positions
+    startAt: 90,       // Immediately move to a degree
+    center: true,      // overrides startAt if true and moves the servo to the center of the range
+  });
+  */
+
+   // Doc http://johnny-five.io/api/servo/
+});
 
 
 
