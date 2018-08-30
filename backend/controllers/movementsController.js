@@ -1,6 +1,9 @@
 var socket = require('./../socket').io();
 var five = require("johnny-five");
-var board = new five.Board();
+var Raspi = require("raspi-io");
+var board = new five.Board({
+    io: new Raspi()
+});
 
 var degree_servo_elbow= 0; // eje z
 var degree_servo_shoulder = 0;
@@ -23,6 +26,9 @@ board.on("ready", function() {
   servo_shoulder = new five.Servo(servo_shoulder_pin);
   servo_waist = new five.Servo(servo_waist_pin);
   pincer = new five.Servo(pincer_pin);
+
+  var led = new five.Led(13);
+  led.blink(500);
 
   // Servo alternate constructor with options
   /*
