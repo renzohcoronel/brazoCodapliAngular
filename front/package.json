@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-     "start": "ng serve --proxy-config proxy.config.json ",
+    "start": "ng serve  --host 192.168.10.3 --proxy-config proxy.config.json ",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -26,6 +26,7 @@
     "core-js": "^2.4.1",
     "ng5-slider": "^1.1.0",
     "ngx-virtual-joystick": "0.0.9",
+    "ngx-webcam": "^0.2.0",
     "nipplejs": "^0.6.8",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"

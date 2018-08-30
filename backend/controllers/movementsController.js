@@ -8,10 +8,10 @@ var degree_servo_waist = 0; // rotar sobre si mismo
 var degree_pincer = 0; // mano
 
 
-var servo_elbow;
-var servo_shoulder;
-var servo_waist;
-var pincer;
+var servo_elbow = 2;
+var servo_shoulder = 3;
+var servo_waist = 4;
+var pincer = 5;
 
 // board.on("ready", function() {
 //   servo_elbow = new five.Servo(10);
@@ -38,25 +38,102 @@ var pincer;
 //     servo: servo
 //   });
 //    // Doc http://johnny-five.io/api/servo/
-//   servo.sweep();
 // });
 
 
 
-exports.movementsxy = async function (request, response) {
+exports.movementsxy = function (request, response) {
 
     const movement = request.body;
+    const x = request.body.x;
+    const y = request.body.y;
+    const first_quadrant= 1;
+    const second_quadrant =2;
+    const third_quadrant =3;
+    const fourth_quadrant=4;
+    const convert_to_degree=57.2958;
+    const hypotenuse= Math.sqrt( (x*x)+(y*y) );
+    var quadrant;
+    var arcos;
+    var hexagesimal_degree;
+
+    if(hypotenuse>25){ 
+           
+            if(x>0 && y>0){
+                quadrant= 1;
+            }
+            if(x<0 && y>0){
+               quadrant=2;
+            }
+            if(x<0 && y<0){
+                quadrant=3;
+            }
+            if(x>0 && y<0){
+                quadrant=4;  
+            }
+        arcos=Math.acos( x/hypotenuse )*convert_to_degree;
+        hexagesimal_degree=Math.trunc(arcos);
+
+            
+        switch (quadrant){
+            case first_quadrant:{
+                if(hexagesimal_degree>=45 && hexagesimal_degree<=90){
+                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
+                    console.log("Move: top-right");
+                } else{
+                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
+                    console.log("Move: right-top"); 
+                }
+                break;
+            }
+
+            case second_quadrant:{
+                if(hexagesimal_degree>90 && hexagesimal_degree<=135){
+                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
+                    console.log("Move:top-left");
+                } else {
+                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
+                    console.log("Move:left-top");
+                }
+                break;
+            }
+
+            case third_quadrant:{
+                if(hexagesimal_degree>180 && hexagesimal_degree<=225){
+                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
+                    console.log("Move:left-bottom");
+                } else {
+                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
+                    console.log("Move:bottom-left");
+                }
+                break;
+            }
+
+            case fourth_quadrant:{
+                if(hexagesimal_degree>270 && hexagesimal_degree<=315){
+                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
+                    console.log("Move:bottom-right");
+                } else {
+                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
+                    console.log("Move:right-bottom");
+                }
+                break;
+            }
+        }
+
+    }
+
     console.log("[Movements xy] " , movement);
-    response.send();
+    response.send(); 
 }
 
-exports.movementsz = async function (request, response) {
+exports.movementsz = function (request, response) {
     const movement = request.body;
     console.log("[Movements z] " , movement);
     response.send();
 }
 
-exports.pincers_close = async function (request, response) {
+exports.pincers_close = function (request, response) {
     degree_pincer--
     console.log("[Movements Pincer] " , degree_pincer);
     response.send();

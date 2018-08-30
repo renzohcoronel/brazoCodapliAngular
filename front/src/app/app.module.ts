@@ -8,7 +8,7 @@ import { JoystickModule } from './joystick/joystick.module';
 import { Ng5SliderModule } from 'ng5-slider';
 import { ControllerService } from './services/controller.service';
 import { PincersModule } from './pincers/pincers/pincers.module';
-
+import {WebcamModule} from 'ngx-webcam';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { PincersModule } from './pincers/pincers/pincers.module';
     JoystickModule,
     Ng5SliderModule,
     PincersModule,
-    HttpClientModule
+    HttpClientModule,
+    WebcamModule
   ],
   providers: [
     ControllerService

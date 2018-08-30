@@ -5,8 +5,9 @@ import { ControllerService } from '../services/controller.service';
 @Component({
   selector: 'app-slider',
   template: `
-    <ng5-slider [(value)]="value" [options]="options" (valueChange)="sliderChange()"></ng5-slider>
-  `,
+    <ng5-slider [(value)]="value" [options]="options" (valueChange)="sliderChange($event)"></ng5-slider>
+    
+   `,
   styleUrls: ['./slider.component.css']
 })
 export class SliderComponent implements OnInit {
