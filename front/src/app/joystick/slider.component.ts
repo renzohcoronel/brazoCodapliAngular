@@ -14,7 +14,7 @@ export class SliderComponent implements OnInit {
 
   value = 0
   options: Options = {
-    floor: 60,
+    floor: 0,
     ceil: 180
   };
   
