@@ -198,8 +198,6 @@ exports.movementsxy = function (request, response) {
                         degree_servo_shoulder = 45;
                     }
                     printPositions();
-
-                    printPositions();
                 } else {
                     console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
                     console.log("Move:right-bottom");

@@ -14,8 +14,8 @@ export class SliderComponent implements OnInit {
 
   value = 0
   options: Options = {
-    floor: 0,
-    ceil: 100
+    floor: 60,
+    ceil: 180
   };
   
   constructor(private controllerService: ControllerService) { }
