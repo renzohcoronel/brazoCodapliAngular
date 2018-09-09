@@ -5,10 +5,10 @@ var board = new five.Board({
     io: new Raspi({ enableSoftPwm: true })
 });
 
-var degree_servo_elbow = 45; // eje z
-var degree_servo_shoulder = 45;
-var degree_servo_waist = 45; // rotar sobre si mismo
-var degree_pincer = 20; // mano
+var degree_servo_elbow = 90; // eje z
+var degree_servo_shoulder = 90;
+var degree_servo_waist = 90; // rotar sobre si mismo
+var degree_pincer = 90; // mano
 
 
 var servo_elbow_pin = 'P1-35';
@@ -24,26 +24,34 @@ var pincer;
 board.on("ready", function () {
     servo_elbow = new five.Servo({
         pin: servo_elbow_pin,
-        range: [60, 150],
-        startAt: degree_servo_elbow
+        fps: 500,
+        range: [0,180],
+        deviceRange: [0,180],
+        pwmRange: [640, 2300],
+        startAt : degree_servo_elbow
     });
-
     servo_shoulder = new five.Servo({
         pin: servo_shoulder_pin,
-        range: [45, 180],
-        startAt: degree_servo_shoulder
+        fps: 500,
+        startAt : degree_servo_shoulder,
+        deviceRange: [0,180],
+        pwmRange: [640, 2300],
     });
+
 
     servo_waist = new five.Servo({
         pin: servo_waist_pin,
-        range: [0, 180],
-        startAt: degree_servo_waist
+        fps: 500,
+        startAt : degree_servo_waist,
+        deviceRange: [0,180],
+        pwmRange: [640, 2300],
     });
 
     pincer = new five.Servo({
         pin: pincer_pin,
-        startAt: degree_pincer,
-        range: [0, 180]
+        fps: 500,
+        deviceRange: [0,180],
+        pwmRange: [640, 2300],
     });
 
 
@@ -81,7 +89,7 @@ exports.movementsxy = function (request, response) {
     var arcos;
     var hexagesimal_degree;
 
-    if (hypotenuse > 25) {
+    if (hypotenuse > 40) {
 
         if (x > 0 && y > 0) {
             quadrant = 1;
@@ -102,28 +110,26 @@ exports.movementsxy = function (request, response) {
         switch (quadrant) {
             case first_quadrant: {
                 if (hexagesimal_degree >= 45 && hexagesimal_degree <= 90) {
-                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
-                    console.log("Move: top-right");
+                    console.log("Primer cuadrante ARRIBA");
                      // ###### shoulder - codo  #######
                      if (degree_servo_shoulder <= 180) {
                         degree_servo_shoulder++;
-                        servo_shoulder.to(degree_servo_shoulder);
                     } else {
                         degree_servo_shoulder = 180;
                     }
+                    servo_shoulder.to(degree_servo_shoulder);
 
                     printPositions();
                 } else {
-                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
-                    console.log("Move: right-top");
+                    console.log("Primer cuadrante ABAJO");
 
                     // ###### waist - cintura  #######
                     if (degree_servo_waist <= 180) {
                         degree_servo_waist++;
-                        servo_waist.to(degree_servo_waist);
                     } else {
                         degree_servo_waist = 180;
                     }
+                    servo_waist.to(degree_servo_waist);
                     printPositions();
                 }
                 break;
@@ -131,28 +137,25 @@ exports.movementsxy = function (request, response) {
 
             case second_quadrant: {
                 if (hexagesimal_degree > 90 && hexagesimal_degree <= 135) {
-                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
-                    console.log("Move:top-left");
+                    console.log("Segundo cuadrante ARRIBA")
                      // ###### shoulder - codo  #######
                      if (degree_servo_shoulder <= 180) {
                         degree_servo_shoulder++;
-                        servo_shoulder.to(degree_servo_shoulder);
                     } else {
                         degree_servo_shoulder = 180;
                     }
-
+                    servo_shoulder.to(degree_servo_shoulder);
                     printPositions();
                 } else {
-                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
-                    console.log("Move:left-top");
+                    console.log("Segundo cuadrante ABAJO")
 
                     // ###### waist - cintura  #######
                     if (degree_servo_waist >= 0) {
                         degree_servo_waist--;
-                        servo_waist.to(degree_servo_waist);
                     } else {
                         degree_servo_waist = 0;
                     }
+                    servo_waist.to(degree_servo_waist);
                     printPositions();
                 }
                 break;
@@ -160,27 +163,25 @@ exports.movementsxy = function (request, response) {
 
             case third_quadrant: {
                 if (hexagesimal_degree > 180 && hexagesimal_degree <= 225) {
-                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
-                    console.log("Move:left-bottom");
+                    console.log("Tercer cuadrante ARRIBA")
 
                     // ###### waist - cintura  #######
                     if (degree_servo_waist >= 0) {
                         degree_servo_waist--;
-                        servo_waist.to(degree_servo_waist);
                     } else {
                         degree_servo_waist = 0;
                     }
+                    servo_waist.to(degree_servo_waist);
                     printPositions();
                 } else {
-                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
-                    console.log("Move:bottom-left");
+                    console.log("Tercer cuadrante ABAJO")
                      // ###### shoulder - codo  #######
-                     if (degree_servo_shoulder <= 180) {
-                        degree_servo_shoulder++;
-                        servo_shoulder.to(degree_servo_shoulder);
+                     if (degree_servo_shoulder >=0) {
+                        degree_servo_shoulder--;
                     } else {
-                        degree_servo_shoulder = 45;
+                        degree_servo_shoulder = 0;
                     }
+                    servo_shoulder.to(degree_servo_shoulder);
                     printPositions();
                 }
                 break;
@@ -188,27 +189,25 @@ exports.movementsxy = function (request, response) {
 
             case fourth_quadrant: {
                 if (hexagesimal_degree > 270 && hexagesimal_degree <= 315) {
-                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
-                    console.log("Move:bottom-right");
+                    console.log("Cuarto cuadrante ABAJO")
                       // ###### shoulder - codo  #######
-                      if (degree_servo_shoulder <= 180) {
-                        degree_servo_shoulder++;
-                        servo_shoulder.to(degree_servo_shoulder);
+                      if (degree_servo_shoulder >= 0) {
+                        degree_servo_shoulder--;
                     } else {
-                        degree_servo_shoulder = 45;
+                        degree_servo_shoulder = 0;
                     }
+                    servo_shoulder.to(degree_servo_shoulder);
                     printPositions();
                 } else {
-                    console.log("The arm will move ", hexagesimal_degree, "degrees, and ", hypotenuse, "milimeters.");
-                    console.log("Move:right-bottom");
+                    console.log("Cuarto cuadrante ARRIBA")
 
                     // ###### waist - cintura  #######
                     if (degree_servo_waist <= 180) {
                         degree_servo_waist++;
-                        servo_waist.to(degree_servo_waist);
                     } else {
                         degree_servo_waist = 180;
                     }
+                    servo_waist.to(degree_servo_waist);
 
                     printPositions();
                 }
@@ -226,7 +225,7 @@ exports.movementsz = function (request, response) {
     const movement = request.body;
     console.log("[Movements z] ", movement, degree_servo_elbow);
     // ###### elbow - Hombre  #######
-    if (movement.z >= 60 && movement.z <= 150) {
+    if (movement.z >= 0 && movement.z <= 180) {
         degree_servo_elbow = movement.z;
         servo_elbow.to(degree_servo_elbow);
 
@@ -247,7 +246,6 @@ exports.pincers_close = function (request, response) {
     }
     console.log("[Movements Pincer] ", degree_pincer);
     response.send();
-
 }
 
 exports.pincers_open = async function (request, response) {
@@ -260,6 +258,8 @@ exports.pincers_open = async function (request, response) {
         degree_pincer = 120;
     }
     console.log("[Movements Pincer] ", degree_pincer);
+
+
     response.send();
 
 }
